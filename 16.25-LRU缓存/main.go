@@ -46,6 +46,7 @@ func (this *LRUCache) Put(key int, value int) {
 			this.index_key = append(this.index_key, key)
 			this.data[key] = value
 		}
+		return
 	}
 	//如果存在，也是要移动到slice的尾部
 	kIndex := findIndex(this.index_key, key)
