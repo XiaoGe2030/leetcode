@@ -7,61 +7,38 @@ import (
 
 func main() {
 	fmt.Println(myAtoi("  -42"))
+	fmt.Println(myAtoi("words and 987"))
+	fmt.Println(myAtoi("+3-1"))
+	fmt.Println(myAtoi("00000-42a1234"))
+	fmt.Println(myAtoi("  -0012a42"))
 }
 
 func myAtoi(s string) int {
 	var start int
 	pos := true
 
-	for start < len(s) {
-		if s[start] == ' ' || s[start] != '0' {
-			start++
+	n := len(s)
+	for start < n {
+		if s[start] != ' ' {
+			break
 		}
-	}
-
-	fmt.Println(start)
-	if s[start] == '+' {
 		start++
-	} else if s[start] == '-' {
-		start++
-		pos = false
 	}
 
 	var res int
-	fmt.Println(start)
-	for i := start; i < len(s); i++ {
-		switch s[i] {
-		case '0':
+	for i := start; i < n; i++ {
+		if i == start {
+			if s[i] == '+' {
+				pos = true
+			} else if s[i] == '-' {
+				pos = false
+			}
+		} else {
+			if s[i] < '0' || s[i] > '9' {
+				return res
+			}
 			res *= 10
-		case '1':
-			res *= 10
-			res += 1
-		case '2':
-			res *= 10
-			res += 2
-		case '3':
-			res *= 10
-			res += 3
-		case '4':
-			res *= 10
-			res += 4
-		case '5':
-			res *= 10
-			res += 5
-		case '6':
-			res *= 10
-			res += 6
-		case '7':
-			res *= 10
-			res += 7
-		case '8':
-			res *= 10
-			res += 8
-		case '9':
-			res *= 10
-			res += 9
-		default:
-			break
+			res += int(s[i] - '0')
 		}
 	}
 
