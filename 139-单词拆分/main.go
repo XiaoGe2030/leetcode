@@ -5,18 +5,19 @@ import (
 )
 
 func main() {
-	//	fmt.Println(wordBreak("leetcode", []string{"leet", "code"}))
+	fmt.Println(wordBreak("leetcode", []string{"leet", "code"}))
 	fmt.Println(wordBreak("applepenapple", []string{"apple", "pen"}))
-	fmt.Println(wordBreak("catsandog", []string{"cat", "dog", "sand", "and", "catsan"}))
+	fmt.Println(wordBreak("catsandog", []string{"cats", "dog", "sand", "and", "cat"}))
 }
 
 func wordBreak(s string, wordDict []string) bool {
 	n := len(s)
 	dp := make([]bool, n+1)
 	dp[0] = true
+
 	for i := 0; i < n; i++ {
 		for j := i + 1; j < n+1; j++ {
-			if dp[i] && sInSlice(s[i:j], wordDict) {
+			if dp[i] && inStr(s[i:j], wordDict) {
 				dp[j] = true
 			}
 		}
@@ -25,12 +26,11 @@ func wordBreak(s string, wordDict []string) bool {
 	return dp[n]
 }
 
-func sInSlice(s string, str []string) bool {
+func inStr(s string, str []string) bool {
 	for _, si := range str {
-		if si == s {
+		if s == si {
 			return true
 		}
 	}
-
 	return false
 }
