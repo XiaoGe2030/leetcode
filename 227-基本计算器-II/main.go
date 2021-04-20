@@ -1,9 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	fmt.Println(calculate("3+2*2"))
+	//	fmt.Println(calculate("3+2*2"))
+	fmt.Println(calculate("3/2"))
+	//	fmt.Println(calculate("3+ 5 / 2"))
+	//	fmt.Println(calculate("1-1+1"))
 }
 
 func calculate(s string) int {
@@ -16,9 +21,8 @@ func calculate(s string) int {
 			num *= 10
 			num += int(ch - '0')
 		}
-
-		if !isDig && ch != ' ' || len(s)-1 == i {
-			switch preSige {
+		if !isDig && ch != ' ' || i == len(s)-1 {
+			switch preSign {
 			case '+':
 				numStack = append(numStack, num)
 			case '-':
@@ -29,7 +33,7 @@ func calculate(s string) int {
 				numStack[len(numStack)-1] /= num
 			}
 			num = 0
-			preSige = ch
+			preSign = ch
 		}
 	}
 
@@ -37,7 +41,5 @@ func calculate(s string) int {
 	for _, n := range numStack {
 		res += n
 	}
-
 	return res
-
 }
