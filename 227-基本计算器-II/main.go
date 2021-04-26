@@ -13,15 +13,14 @@ func main() {
 
 func calculate(s string) int {
 	numStack := make([]int, 0)
+	preSige := '+'
 	num := 0
-	preSign := '+'
 	for i, ch := range s {
 		isDig := ch >= '0' && ch <= '9'
 		if isDig {
 			num *= 10
 			num += int(ch - '0')
 		}
-
 		if !isDig && ch != ' ' || i == len(s)-1 {
 			switch preSign {
 			case '+':
@@ -42,6 +41,5 @@ func calculate(s string) int {
 	for _, n := range numStack {
 		res += n
 	}
-
 	return res
 }
